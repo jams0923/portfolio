@@ -5,36 +5,126 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>James Huang | Mechanical Design Engineer Portfolio</title>
   <meta name="description" content="Portfolio of James Huang, Mechanical Design Engineer specializing in RF test fixtures, precision mechanisms, thermal design, and manufacturable engineering systems." />
+
   <style>
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
+    :root {
+      --bg: #f1f5f9;
+      --text: #0f172a;
+      --muted: #64748b;
+      --muted-2: #475569;
+      --card: #ffffff;
+      --card-soft: #f8fafc;
+      --border: #e2e8f0;
+      --border-2: #cbd5e1;
+      --btn-dark: #0f172a;
+      --btn-dark-text: #ffffff;
+      --btn-light: #ffffff;
+      --btn-light-text: #334155;
+      --contact-bg: #0f172a;
+      --contact-text: #ffffff;
+      --shadow: 0 1px 3px rgba(0,0,0,.06);
+      --shadow-strong: 0 1px 3px rgba(0,0,0,.08);
+      --header-bg: rgba(255,255,255,.9);
+      --header-border: rgba(255,255,255,.7);
+    }
+
+    body[data-theme="dark"] {
+      --bg: #020617;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --muted-2: #cbd5e1;
+      --card: #0f172a;
+      --card-soft: #111827;
+      --border: #1e293b;
+      --border-2: #334155;
+      --btn-dark: #e2e8f0;
+      --btn-dark-text: #0f172a;
+      --btn-light: #0f172a;
+      --btn-light-text: #e2e8f0;
+      --contact-bg: #020617;
+      --contact-text: #f8fafc;
+      --shadow: 0 1px 3px rgba(0,0,0,.35);
+      --shadow-strong: 0 1px 3px rgba(0,0,0,.35);
+      --header-bg: rgba(15,23,42,.9);
+      --header-border: rgba(51,65,85,.8);
+    }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f1f5f9;
-      color: #0f172a;
+      background: var(--bg);
+      color: var(--text);
     }
+
     a { color: inherit; text-decoration: none; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
 
     .header {
-      position: sticky; top: 16px; z-index: 20;
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 24px; padding: 14px 20px;
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(255,255,255,.7);
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 14px 20px;
+      background: var(--header-bg);
+      border: 1px solid var(--header-border);
       border-radius: 18px;
       backdrop-filter: blur(8px);
-      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      box-shadow: var(--shadow-strong);
     }
-    .nav { display: flex; gap: 20px; font-size: 14px; color: #475569; }
-    .nav a:hover { color: #0f172a; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      color: var(--muted-2);
+      flex-wrap: wrap;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-select {
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-2);
+      background: var(--card);
+      color: var(--btn-light-text);
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
 
     .section {
-      background: #fff;
-      border: 1px solid #e2e8f0;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      box-shadow: var(--shadow);
       padding: 24px;
       margin-bottom: 24px;
     }
@@ -50,49 +140,86 @@
       display: inline-flex;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
-      color: #475569;
+      border: 1px solid var(--border);
+      background: var(--card-soft);
+      color: var(--muted-2);
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .18em;
     }
 
-    h1 { margin: 12px 0 0; font-size: 52px; line-height: 1.1; }
-    .subtitle { margin-top: 16px; font-size: 22px; font-weight: 700; color: #334155; }
-    .bodycopy { margin-top: 16px; font-size: 16px; line-height: 1.9; color: #475569; }
+    h1 {
+      margin: 12px 0 0;
+      font-size: 52px;
+      line-height: 1.1;
+    }
 
-    .btnrow { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .subtitle {
+      margin-top: 16px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .bodycopy {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--muted-2);
+    }
+
+    .btnrow {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
     .btn {
       display: inline-block;
       padding: 14px 20px;
       border-radius: 18px;
       font-size: 14px;
       font-weight: 700;
-      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      box-shadow: var(--shadow-strong);
+      border: 1px solid transparent;
     }
-    .btn-dark { background: #0f172a; color: #fff; }
-    .btn-light { background: #fff; color: #334155; border: 1px solid #cbd5e1; }
+
+    .btn-dark {
+      background: var(--btn-dark);
+      color: var(--btn-dark-text);
+    }
+
+    .btn-light {
+      background: var(--btn-light);
+      color: var(--btn-light-text);
+      border: 1px solid var(--border-2);
+    }
 
     .sidebarbox {
       display: grid;
       gap: 16px;
       padding: 20px;
       border-radius: 24px;
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
+      border: 1px solid var(--border);
+      background: var(--card-soft);
     }
 
     .card {
-      background: #fff;
+      background: var(--card);
       border-radius: 18px;
       padding: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      box-shadow: var(--shadow);
     }
+
     .card.dark {
       background: linear-gradient(135deg,#0f172a,#334155);
       color: #fff;
+    }
+
+    body[data-theme="dark"] .card.dark {
+      background: linear-gradient(135deg,#111827,#1e293b);
     }
 
     .card-title {
@@ -100,19 +227,25 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .16em;
-      color: #64748b;
+      color: var(--muted);
       margin-bottom: 10px;
     }
+
     .card.dark .card-title { color: #cbd5e1; }
 
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     .pill {
       display: inline-flex;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid #cbd5e1;
-      background: #fff;
-      color: #334155;
+      border: 1px solid var(--border-2);
+      background: var(--card);
+      color: var(--btn-light-text);
       font-size: 12px;
       font-weight: 600;
     }
@@ -121,47 +254,66 @@
       margin-bottom: 8px;
       font-size: 12px;
       font-weight: 700;
-      color: #64748b;
+      color: var(--muted);
       text-transform: uppercase;
       letter-spacing: .22em;
     }
-    .section h2 { margin: 0; font-size: 32px; }
+
+    .section h2 {
+      margin: 0;
+      font-size: 32px;
+    }
+
     .section-sub {
       margin-top: 12px;
       max-width: 900px;
       font-size: 16px;
       line-height: 1.9;
-      color: #475569;
+      color: var(--muted-2);
     }
 
     .stack { display: grid; gap: 16px; }
+
     .job {
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border);
       border-radius: 18px;
       padding: 20px;
+      background: transparent;
     }
-    .job-top { display: flex; justify-content: space-between; gap: 16px; }
-    .job h3 { margin: 0; font-size: 20px; }
-    .muted { color: #64748b; }
+
+    .job-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .job h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .muted { color: var(--muted); }
 
     ul.clean {
       margin: 16px 0 0;
       padding: 0;
       list-style: none;
     }
+
     ul.clean li {
       display: flex;
       gap: 10px;
       margin: 8px 0;
       line-height: 1.8;
-      color: #334155;
+      color: var(--btn-light-text);
     }
+
     .dot {
       margin-top: 10px;
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #94a3b8;
+      background: var(--muted);
       flex: 0 0 auto;
     }
 
@@ -170,9 +322,10 @@
       gap: 16px;
       grid-template-columns: repeat(4,1fr);
     }
+
     .skill-box {
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
+      border: 1px solid var(--border);
+      background: var(--card-soft);
       border-radius: 18px;
       padding: 20px;
     }
@@ -183,14 +336,14 @@
       align-items: stretch;
       grid-template-columns: repeat(3,1fr);
     }
+
     .project {
-      /* 原本是 min-height: 1120px; */
       min-height: 0;
       height: 100%;
       display: flex;
       flex-direction: column;
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
+      border: 1px solid var(--border);
+      background: var(--card-soft);
       border-radius: 18px;
       padding: 20px;
     }
@@ -199,15 +352,16 @@
       margin-bottom: 16px;
       overflow: hidden;
       border-radius: 18px;
-      border: 1px solid #e2e8f0;
-      background: #e2e8f0;
+      border: 1px solid var(--border);
+      background: var(--border);
     }
 
     .project-visual.single {
       height: 360px;
-      background: #fff;
+      background: var(--card);
       padding: 12px;
     }
+
     .project-visual.single img {
       width: 100%;
       height: 100%;
@@ -220,14 +374,16 @@
       grid-template-rows: 1fr 1fr;
       gap: 1px;
       height: 360px;
-      background: #fff;
+      background: var(--card);
     }
+
     .project-visual.double .img-wrap {
-      background: #fff;
+      background: var(--card);
       padding: 8px;
       width: 100%;
       height: 100%;
     }
+
     .project-visual.double img {
       width: 100%;
       height: 100%;
@@ -241,11 +397,12 @@
       gap: 8px;
       margin-bottom: 20px;
     }
+
     .metric {
       height: 96px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border);
       border-radius: 18px;
-      background: #fff;
+      background: var(--card);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -254,27 +411,35 @@
       padding: 12px 8px;
       box-shadow: 0 1px 2px rgba(0,0,0,.04);
     }
+
     .metric-label {
       font-size: 9px;
       font-weight: 700;
       line-height: 1;
       letter-spacing: .04em;
       text-transform: uppercase;
-      color: #64748b;
+      color: var(--muted);
       white-space: nowrap;
     }
+
     .metric-value {
       margin-top: 14px;
       font-size: 14px;
       font-weight: 700;
       line-height: 1;
       letter-spacing: -.02em;
-      color: #0f172a;
+      color: var(--text);
       white-space: nowrap;
     }
 
-    .project h3 { margin: 0; font-size: 20px; line-height: 1.35; }
+    .project h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
     .min-title { min-height: 84px; }
+
     .tagrow {
       margin-top: auto;
       padding-top: 20px;
@@ -289,7 +454,11 @@
       grid-template-columns: .7fr 1.3fr;
     }
 
-    .contact { background: #0f172a; color: #fff; }
+    .contact {
+      background: var(--contact-bg);
+      color: var(--contact-text);
+    }
+
     .contact .section-eyebrow { color: #cbd5e1; }
     .contact .section-sub { color: #cbd5e1; }
 
@@ -298,12 +467,14 @@
       gap: 16px;
       grid-template-columns: repeat(2,1fr);
     }
+
     .contact-card {
       border: 1px solid rgba(255,255,255,.1);
       background: rgba(255,255,255,.05);
       border-radius: 18px;
       padding: 20px;
     }
+
     .contact-label {
       font-size: 12px;
       font-weight: 700;
@@ -311,6 +482,7 @@
       letter-spacing: .18em;
       color: #cbd5e1;
     }
+
     .contact-link {
       display: block;
       margin-top: 12px;
@@ -319,6 +491,7 @@
       text-underline-offset: 4px;
       word-break: break-word;
     }
+
     .contact-actions {
       margin-top: 24px;
       display: flex;
@@ -332,54 +505,84 @@
     }
 
     @media (max-width: 768px) {
-      .header { display: none; }
+      .header {
+        position: static;
+        border-radius: 16px;
+      }
+      .header-right {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .toolbar {
+        width: 100%;
+        justify-content: flex-start;
+      }
       h1 { font-size: 38px; }
       .hero { padding: 24px; }
       .contact-boxes { grid-template-columns: 1fr; }
       .job-top { flex-direction: column; }
+      .nav { gap: 12px; }
+      .toolbar-select { width: auto; }
     }
   </style>
 </head>
-<body>
+
+<body data-theme="light">
   <div class="container">
     <header class="header">
       <div style="font-size:14px;font-weight:700;">James Huang</div>
-      <nav class="nav">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
+
+      <div class="header-right">
+        <nav class="nav">
+          <a href="#about" data-i18n="navAbout">About</a>
+          <a href="#experience" data-i18n="navExperience">Experience</a>
+          <a href="#skills" data-i18n="navSkills">Skills</a>
+          <a href="#projects" data-i18n="navProjects">Projects</a>
+          <a href="#contact" data-i18n="navContact">Contact</a>
+        </nav>
+
+        <div class="toolbar">
+          <select id="languageSelect" class="toolbar-select" aria-label="Language selector">
+            <option value="en">English</option>
+            <option value="zh-Hant">繁體中文</option>
+          </select>
+
+          <select id="themeSelect" class="toolbar-select" aria-label="Theme selector">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
     </header>
 
     <section class="section hero">
       <div>
-        <div class="badge">Mechanical Portfolio</div>
-        <h1>黃仲瑄 / James Huang</h1>
-        <div class="subtitle">Mechanical Design Engineer | RF Test Fixtures | Precision Mechanisms | Thermal Design</div>
-        <div class="bodycopy">
+        <div class="badge" data-i18n="heroBadge">Mechanical Portfolio</div>
+        <h1 data-i18n="heroName">黃仲瑄 / James Huang</h1>
+        <div class="subtitle" data-i18n="heroSubtitle">Mechanical Design Engineer | RF Test Fixtures | Precision Mechanisms | Thermal Design</div>
+        <div class="bodycopy" data-i18n="heroBody">
           Specialized in RF test systems, precision fixtures, thermal management, and manufacturable mechanical design.
           This version is built as a cleaner, more polished portfolio landing page for recruiting and resume use.
         </div>
         <div class="btnrow">
-          <a class="btn btn-dark" href="#projects">View Featured Projects</a>
-          <a class="btn btn-light" href="#contact">Contact Me</a>
+          <a class="btn btn-dark" href="#projects" data-i18n="heroBtnProjects">View Featured Projects</a>
+          <a class="btn btn-light" href="#contact" data-i18n="heroBtnContact">Contact Me</a>
         </div>
       </div>
 
       <div class="sidebarbox">
         <div class="card">
-          <div class="card-title">Seeking Roles</div>
-          <div style="display:grid;gap:8px;font-size:14px;color:#334155;">
-            <div>Mechanical Design Engineer</div>
-            <div>RF / Test Fixture Design</div>
-            <div>Precision Equipment / Automation</div>
-            <div>Thermal / Enclosure Design</div>
+          <div class="card-title" data-i18n="seekingRolesTitle">Seeking Roles</div>
+          <div style="display:grid;gap:8px;font-size:14px;color:var(--btn-light-text);">
+            <div data-i18n="role1">Mechanical Design Engineer</div>
+            <div data-i18n="role2">RF / Test Fixture Design</div>
+            <div data-i18n="role3">Precision Equipment / Automation</div>
+            <div data-i18n="role4">Thermal / Enclosure Design</div>
           </div>
         </div>
+
         <div class="card">
-          <div class="card-title">Core Strengths</div>
+          <div class="card-title" data-i18n="coreStrengthsTitle">Core Strengths</div>
           <div class="pills">
             <span class="pill">SolidWorks</span>
             <span class="pill">GD&amp;T</span>
@@ -389,9 +592,10 @@
             <span class="pill">RF Fixture Design</span>
           </div>
         </div>
+
         <div class="card dark">
-          <div class="card-title">Quick Value</div>
-          <div style="font-size:14px;line-height:1.9;color:#f8fafc;">
+          <div class="card-title" data-i18n="quickValueTitle">Quick Value</div>
+          <div style="font-size:14px;line-height:1.9;color:#f8fafc;" data-i18n="quickValueBody">
             Designed systems that improved repeatability, reduced setup time, and balanced engineering performance with manufacturing practicality.
           </div>
         </div>
@@ -399,9 +603,9 @@
     </section>
 
     <section id="about" class="section">
-      <div class="section-eyebrow">About</div>
-      <h2>Engineering focus built around precision, manufacturability, and real-world deployment</h2>
-      <div class="section-sub">
+      <div class="section-eyebrow" data-i18n="aboutEyebrow">About</div>
+      <h2 data-i18n="aboutTitle">Engineering focus built around precision, manufacturability, and real-world deployment</h2>
+      <div class="section-sub" data-i18n="aboutBody">
         As a Mechanical Design Engineer at Ohmplus Technology Inc., I specialize in RF testing systems, thermal management,
         and precision mechanical design. With a strong foundation in SolidWorks, FEA analysis, and GD&amp;T, I bring innovative
         solutions to complex engineering challenges.
@@ -409,95 +613,128 @@
     </section>
 
     <section id="experience" class="section">
-      <div class="section-eyebrow">Experience</div>
-      <h2>Work Experience</h2>
+      <div class="section-eyebrow" data-i18n="expEyebrow">Experience</div>
+      <h2 data-i18n="expTitle">Work Experience</h2>
+
       <div class="stack" style="margin-top:20px;">
         <div class="job">
           <div class="job-top">
-            <div><h3>Mechanical Design Engineer</h3><div class="muted">Ohmplus Technology Inc.</div></div>
-            <div class="muted" style="font-weight:600;">June 2024 – Present</div>
+            <div>
+              <h3 data-i18n="job1Title">Mechanical Design Engineer</h3>
+              <div class="muted">Ohmplus Technology Inc.</div>
+            </div>
+            <div class="muted" style="font-weight:600;" data-i18n="job1Date">June 2024 – Present</div>
           </div>
           <ul class="clean">
-            <li><span class="dot"></span><span>Designed RF testing fixtures and precision motion mechanisms to improve test stability and repeatability for antenna and module validation.</span></li>
-            <li><span class="dot"></span><span>Developed manufacturable assemblies using SolidWorks, GD&amp;T, and tolerance analysis to improve build consistency and reduce assembly risk.</span></li>
-            <li><span class="dot"></span><span>Resolved assembly and debugging issues with RF and production teams, accelerating integration and prototype readiness.</span></li>
+            <li><span class="dot"></span><span data-i18n="job1Bullet1">Designed RF testing fixtures and precision motion mechanisms to improve test stability and repeatability for antenna and module validation.</span></li>
+            <li><span class="dot"></span><span data-i18n="job1Bullet2">Developed manufacturable assemblies using SolidWorks, GD&amp;T, and tolerance analysis to improve build consistency and reduce assembly risk.</span></li>
+            <li><span class="dot"></span><span data-i18n="job1Bullet3">Resolved assembly and debugging issues with RF and production teams, accelerating integration and prototype readiness.</span></li>
           </ul>
         </div>
 
         <div class="job">
           <div class="job-top">
-            <!-- 與履歷名稱一致 -->
-            <div><h3>Product Manager</h3><div class="muted">Ohmplus Technology Inc.</div></div>
-            <div class="muted" style="font-weight:600;">June 2021 – June 2024</div>
+            <div>
+              <h3 data-i18n="job2Title">Product Manager</h3>
+              <div class="muted">Ohmplus Technology Inc.</div>
+            </div>
+            <div class="muted" style="font-weight:600;" data-i18n="job2Date">June 2021 – June 2024</div>
           </div>
           <ul class="clean">
-            <li><span class="dot"></span><span>Managed RF measurement equipment programs from concept to production, aligning technical scope with schedule and manufacturing readiness.</span></li>
-            <li><span class="dot"></span><span>Coordinated engineering, manufacturing, and quality teams to keep projects on track and reduce execution delays.</span></li>
-            <li><span class="dot"></span><span>Delivered multiple projects on time while meeting quality requirements and cost targets.</span></li>
+            <li><span class="dot"></span><span data-i18n="job2Bullet1">Managed RF measurement equipment programs from concept to production, aligning technical scope with schedule and manufacturing readiness.</span></li>
+            <li><span class="dot"></span><span data-i18n="job2Bullet2">Coordinated engineering, manufacturing, and quality teams to keep projects on track and reduce execution delays.</span></li>
+            <li><span class="dot"></span><span data-i18n="job2Bullet3">Delivered multiple projects on time while meeting quality requirements and cost targets.</span></li>
           </ul>
         </div>
 
         <div class="job">
           <div class="job-top">
-            <div><h3>Research Assistant</h3><div class="muted">National Taiwan University</div></div>
-            <div class="muted" style="font-weight:600;">November 2020 – June 2021</div>
+            <div>
+              <h3 data-i18n="job3Title">Research Assistant</h3>
+              <div class="muted">National Taiwan University</div>
+            </div>
+            <div class="muted" style="font-weight:600;" data-i18n="job3Date">November 2020 – June 2021</div>
           </div>
           <ul class="clean">
-            <li><span class="dot"></span><span>Supported mechanical design research for precision measurement systems, improving test setup reliability and workflow consistency.</span></li>
-            <li><span class="dot"></span><span>Assisted with experimental setup and data collection, helping maintain repeatable execution and clear technical records.</span></li>
-            <li><span class="dot"></span><span>Contributed to technical documentation and publication support through structured engineering reporting.</span></li>
+            <li><span class="dot"></span><span data-i18n="job3Bullet1">Supported mechanical design research for precision measurement systems, improving test setup reliability and workflow consistency.</span></li>
+            <li><span class="dot"></span><span data-i18n="job3Bullet2">Assisted with experimental setup and data collection, helping maintain repeatable execution and clear technical records.</span></li>
+            <li><span class="dot"></span><span data-i18n="job3Bullet3">Contributed to technical documentation and publication support through structured engineering reporting.</span></li>
           </ul>
         </div>
 
         <div class="job">
           <div class="job-top">
-            <div><h3>Laser Operator</h3><div class="muted">Abcor Pty. Ltd.</div></div>
-            <div class="muted" style="font-weight:600;">January 2018 – June 2020</div>
+            <div>
+              <h3 data-i18n="job4Title">Laser Operator</h3>
+              <div class="muted">Abcor Pty. Ltd.</div>
+            </div>
+            <div class="muted" style="font-weight:600;" data-i18n="job4Date">January 2018 – June 2020</div>
           </div>
           <ul class="clean">
-            <li><span class="dot"></span><span>Operated laser cutting equipment for precision manufacturing, maintaining dimensional accuracy and consistent output quality.</span></li>
-            <li><span class="dot"></span><span>Maintained process control and equipment condition to support stable production performance.</span></li>
-            <li><span class="dot"></span><span>Improved workflow efficiency through process optimization, reducing rework risk and supporting on-time delivery.</span></li>
+            <li><span class="dot"></span><span data-i18n="job4Bullet1">Operated laser cutting equipment for precision manufacturing, maintaining dimensional accuracy and consistent output quality.</span></li>
+            <li><span class="dot"></span><span data-i18n="job4Bullet2">Maintained process control and equipment condition to support stable production performance.</span></li>
+            <li><span class="dot"></span><span data-i18n="job4Bullet3">Improved workflow efficiency through process optimization, reducing rework risk and supporting on-time delivery.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
     <section id="skills" class="section">
-      <div class="section-eyebrow">Skills</div>
-      <h2>Technical Skill Set</h2>
+      <div class="section-eyebrow" data-i18n="skillsEyebrow">Skills</div>
+      <h2 data-i18n="skillsTitle">Technical Skill Set</h2>
+
       <div class="grid-4" style="margin-top:20px;">
         <div class="skill-box">
-          <div class="card-title">Core Engineering</div>
+          <div class="card-title" data-i18n="skillBox1Title">Core Engineering</div>
           <div class="pills">
-            <span class="pill">SolidWorks</span><span class="pill">2D / 3D Mechanical Design</span><span class="pill">GD&amp;T</span><span class="pill">Tolerance Analysis</span><span class="pill">Precision Mechanism Design</span><span class="pill">DFM / DFA</span>
+            <span class="pill">SolidWorks</span>
+            <span class="pill" data-i18n="skill1">2D / 3D Mechanical Design</span>
+            <span class="pill">GD&amp;T</span>
+            <span class="pill">Tolerance Analysis</span>
+            <span class="pill" data-i18n="skill2">Precision Mechanism Design</span>
+            <span class="pill">DFM / DFA</span>
           </div>
         </div>
+
         <div class="skill-box">
-          <div class="card-title">Analysis</div>
+          <div class="card-title" data-i18n="skillBox2Title">Analysis</div>
           <div class="pills">
-            <span class="pill">FEA</span><span class="pill">Thermal Analysis</span><span class="pill">CFD Simulation</span><span class="pill">Structural Evaluation</span>
+            <span class="pill">FEA</span>
+            <span class="pill" data-i18n="skill3">Thermal Analysis</span>
+            <span class="pill">CFD Simulation</span>
+            <span class="pill" data-i18n="skill4">Structural Evaluation</span>
           </div>
         </div>
+
         <div class="skill-box">
-          <div class="card-title">Test &amp; Manufacturing</div>
+          <div class="card-title" data-i18n="skillBox3Title">Test &amp; Manufacturing</div>
           <div class="pills">
-            <span class="pill">RF Test Fixture Design</span><span class="pill">Precision Assembly</span><span class="pill">Assembly &amp; Validation</span><span class="pill">CNC Machining Coordination</span><span class="pill">FARO Arm Measurement</span><span class="pill">Quality Control</span>
+            <span class="pill">RF Test Fixture Design</span>
+            <span class="pill" data-i18n="skill5">Precision Assembly</span>
+            <span class="pill" data-i18n="skill6">Assembly &amp; Validation</span>
+            <span class="pill" data-i18n="skill7">CNC Machining Coordination</span>
+            <span class="pill" data-i18n="skill8">FARO Arm Measurement</span>
+            <span class="pill" data-i18n="skill9">Quality Control</span>
           </div>
         </div>
+
         <div class="skill-box">
-          <div class="card-title">Documentation</div>
+          <div class="card-title" data-i18n="skillBox4Title">Documentation</div>
           <div class="pills">
-            <span class="pill">Technical Documentation</span><span class="pill">Engineering Reports &amp; Specifications</span><span class="pill">Microsoft Office Suite</span>
+            <span class="pill" data-i18n="skill10">Technical Documentation</span>
+            <span class="pill" data-i18n="skill11">Engineering Reports &amp; Specifications</span>
+            <span class="pill" data-i18n="skill12">Microsoft Office Suite</span>
           </div>
         </div>
       </div>
     </section>
 
     <section id="projects" class="section">
-      <div class="section-eyebrow">Projects</div>
-      <h2>Featured Engineering Projects</h2>
-      <div class="section-sub">A project-first layout makes your strongest technical work easier for hiring managers and engineering leads to scan quickly.</div>
+      <div class="section-eyebrow" data-i18n="projectsEyebrow">Projects</div>
+      <h2 data-i18n="projectsTitle">Featured Engineering Projects</h2>
+      <div class="section-sub" data-i18n="projectsBody">
+        A project-first layout makes your strongest technical work easier for hiring managers and engineering leads to scan quickly.
+      </div>
 
       <div class="projects" style="margin-top:20px;">
         <!-- Project 1 -->
@@ -505,35 +742,39 @@
           <div class="project-visual single">
             <img src="https://res.cloudinary.com/dv0jk958g/image/upload/v1772599026/Vertical_RF_Testing_System_Development_hvfik3.jpg" alt="Vertical RF testing system overview">
           </div>
+
           <div class="metrics">
             <div class="metric"><div class="metric-label">Changeover</div><div class="metric-value">&lt; 2 min</div></div>
             <div class="metric"><div class="metric-label">Improvement</div><div class="metric-value">67%</div></div>
-            <div class="metric"><div class="metric-label">Validation</div><div class="metric-value">Stable</div></div>
-          </div>
-          <div class="min-title"><h3>Vertical RF Testing System Development</h3></div>
-          <div class="muted" style="margin-top:8px;font-size:12px;font-weight:600;">Lead Mechanical Engineer • May 2022 – September 2022</div>
-
-          <div style="margin-top:20px;">
-            <div class="card-title">Problem</div>
-            <div class="bodycopy" style="margin-top:8px;font-size:14px;">Built a vertical laboratory test infrastructure for antenna and wireless module evaluation with repeatable measurements, operator safety, and ergonomic use.</div>
+            <div class="metric"><div class="metric-label">Validation</div><div class="metric-value" data-i18n="metricStable">Stable</div></div>
           </div>
 
+          <div class="min-title"><h3 data-i18n="project1Title">Vertical RF Testing System Development</h3></div>
+          <div class="muted" style="margin-top:8px;font-size:12px;font-weight:600;" data-i18n="project1Date">Lead Mechanical Engineer • May 2022 – September 2022</div>
+
           <div style="margin-top:20px;">
-            <div class="card-title">Engineering Actions</div>
+            <div class="card-title" data-i18n="problemTitle">Problem</div>
+            <div class="bodycopy" style="margin-top:8px;font-size:14px;" data-i18n="project1Problem">
+              Built a vertical laboratory test infrastructure for antenna and wireless module evaluation with repeatable measurements, operator safety, and ergonomic use.
+            </div>
+          </div>
+
+          <div style="margin-top:20px;">
+            <div class="card-title" data-i18n="actionsTitle">Engineering Actions</div>
             <ul class="clean">
-              <li><span class="dot"></span><span>Designed modular reflector-based test geometry</span></li>
-              <li><span class="dot"></span><span>Implemented automated DUT platform with lift and in-out motion</span></li>
-              <li><span class="dot"></span><span>Created quick-change DUT mounting with locating pins and pneumatic pressing</span></li>
-              <li><span class="dot"></span><span>Validated design with FEA and laser alignment calibration</span></li>
+              <li><span class="dot"></span><span data-i18n="project1Action1">Designed modular reflector-based test geometry</span></li>
+              <li><span class="dot"></span><span data-i18n="project1Action2">Implemented automated DUT platform with lift and in-out motion</span></li>
+              <li><span class="dot"></span><span data-i18n="project1Action3">Created quick-change DUT mounting with locating pins and pneumatic pressing</span></li>
+              <li><span class="dot"></span><span data-i18n="project1Action4">Validated design with FEA and laser alignment calibration</span></li>
             </ul>
           </div>
 
           <div style="margin-top:20px;">
-            <div class="card-title">Results</div>
+            <div class="card-title" data-i18n="resultsTitle">Results</div>
             <ul class="clean">
-              <li><span class="dot"></span><span>Material change time reduced from 6 minutes to under 2 minutes</span></li>
-              <li><span class="dot"></span><span>Successfully demonstrated at the 2023 International Microwave Symposium</span></li>
-              <li><span class="dot"></span><span>Achieved repeatable, stable RF measurements meeting design thresholds</span></li>
+              <li><span class="dot"></span><span data-i18n="project1Result1">Material change time reduced from 6 minutes to under 2 minutes</span></li>
+              <li><span class="dot"></span><span data-i18n="project1Result2">Successfully demonstrated at the 2023 International Microwave Symposium</span></li>
+              <li><span class="dot"></span><span data-i18n="project1Result3">Achieved repeatable, stable RF measurements meeting design thresholds</span></li>
             </ul>
           </div>
 
@@ -552,40 +793,44 @@
               <img src="https://res.cloudinary.com/dv0jk958g/image/upload/v1772599016/RF_Module_Design_-_UpDown_Converter_jd7fhf.jpg" alt="RF module up-down converter enclosure">
             </div>
           </div>
+
           <div class="metrics">
             <div class="metric"><div class="metric-label">EOL Pass</div><div class="metric-value">100%</div></div>
-            <div class="metric"><div class="metric-label">Architect.</div><div class="metric-value">Reusable</div></div>
+            <div class="metric"><div class="metric-label">Architect.</div><div class="metric-value" data-i18n="metricReusable">Reusable</div></div>
             <div class="metric"><div class="metric-label">Compliance</div><div class="metric-value">Thermal+EMC</div></div>
           </div>
-          <div class="min-title"><h3>RF Module Design – Beamforming &amp; Up/Down Converter</h3></div>
-          <div class="muted" style="margin-top:8px;font-size:12px;font-weight:600;">Lead Mechanical Design Engineer • October 2024 – December 2024</div>
+
+          <div class="min-title"><h3 data-i18n="project2Title">RF Module Design – Beamforming &amp; Up/Down Converter</h3></div>
+          <div class="muted" style="margin-top:8px;font-size:12px;font-weight:600;" data-i18n="project2Date">Lead Mechanical Design Engineer • October 2024 – December 2024</div>
 
           <div style="margin-top:20px;">
-            <div class="card-title">Problem</div>
-            <div class="bodycopy" style="margin-top:8px;font-size:14px;">Designed reusable RF modules for a university lab while balancing thermal performance, EMC compliance, safety, and ease of use.</div>
+            <div class="card-title" data-i18n="problemTitle">Problem</div>
+            <div class="bodycopy" style="margin-top:8px;font-size:14px;" data-i18n="project2Problem">
+              Designed reusable RF modules for a university lab while balancing thermal performance, EMC compliance, safety, and ease of use.
+            </div>
           </div>
 
           <div style="margin-top:20px;">
-            <div class="card-title">Engineering Actions</div>
+            <div class="card-title" data-i18n="actionsTitle">Engineering Actions</div>
             <ul class="clean">
-              <li><span class="dot"></span><span>Developed thermal management for compact modules</span></li>
-              <li><span class="dot"></span><span>Implemented EMC-compliant housing with conductive seams</span></li>
-              <li><span class="dot"></span><span>Optimized heatsink geometry for natural convection</span></li>
-              <li><span class="dot"></span><span>Standardized architecture for manufacturing efficiency</span></li>
+              <li><span class="dot"></span><span data-i18n="project2Action1">Developed thermal management for compact modules</span></li>
+              <li><span class="dot"></span><span data-i18n="project2Action2">Implemented EMC-compliant housing with conductive seams</span></li>
+              <li><span class="dot"></span><span data-i18n="project2Action3">Optimized heatsink geometry for natural convection</span></li>
+              <li><span class="dot"></span><span data-i18n="project2Action4">Standardized architecture for manufacturing efficiency</span></li>
             </ul>
           </div>
 
           <div style="margin-top:20px;">
-            <div class="card-title">Results</div>
+            <div class="card-title" data-i18n="resultsTitle">Results</div>
             <ul class="clean">
-              <li><span class="dot"></span><span>Reduced lead time and manufacturing cost through reusable architecture</span></li>
-              <li><span class="dot"></span><span>Met all thermal and EMC targets with 100% End-of-Line pass rate</span></li>
-              <li><span class="dot"></span><span>Successfully deployed in a teaching laboratory</span></li>
+              <li><span class="dot"></span><span data-i18n="project2Result1">Reduced lead time and manufacturing cost through reusable architecture</span></li>
+              <li><span class="dot"></span><span data-i18n="project2Result2">Met all thermal and EMC targets with 100% End-of-Line pass rate</span></li>
+              <li><span class="dot"></span><span data-i18n="project2Result3">Successfully deployed in a teaching laboratory</span></li>
             </ul>
           </div>
 
           <div class="tagrow">
-            <span class="pill">SolidWorks</span><span class="pill">CFD/FEA</span><span class="pill">Thermal</span><span class="pill">EMC</span><span class="pill">GD&T</span>
+            <span class="pill">SolidWorks</span><span class="pill">CFD/FEA</span><span class="pill">Thermal</span><span class="pill">EMC</span><span class="pill">GD&amp;T</span>
           </div>
         </div>
 
@@ -594,40 +839,44 @@
           <div class="project-visual single">
             <img src="https://res.cloudinary.com/dv0jk958g/image/upload/v1772598989/Desktop_High-Frequency_RF_Test_Chamber_lvbdts.jpg" alt="Desktop RF test chamber exterior">
           </div>
+
           <div class="metrics">
             <div class="metric"><div class="metric-label">Frequency</div><div class="metric-value">1–67 GHz</div></div>
-            <div class="metric"><div class="metric-label">Form Factor</div><div class="metric-value">Desktop</div></div>
-            <div class="metric"><div class="metric-label">Isolation</div><div class="metric-value">High</div></div>
-          </div>
-          <div class="min-title"><h3>Desktop High-Frequency RF Test Chamber</h3></div>
-          <div class="muted" style="margin-top:8px;font-size:12px;font-weight:600;">Mechanical Design Engineer • May 2025 – August 2025</div>
-
-          <div style="margin-top:20px;">
-            <div class="card-title">Problem</div>
-            <div class="bodycopy" style="margin-top:8px;font-size:14px;">Created a portable desktop RF measurement enclosure with high isolation and geometric repeatability under tight size and weight limits.</div>
+            <div class="metric"><div class="metric-label">Form Factor</div><div class="metric-value" data-i18n="metricDesktop">Desktop</div></div>
+            <div class="metric"><div class="metric-label">Isolation</div><div class="metric-value" data-i18n="metricHigh">High</div></div>
           </div>
 
+          <div class="min-title"><h3 data-i18n="project3Title">Desktop High-Frequency RF Test Chamber</h3></div>
+          <div class="muted" style="margin-top:8px;font-size:12px;font-weight:600;" data-i18n="project3Date">Mechanical Design Engineer • May 2025 – August 2025</div>
+
           <div style="margin-top:20px;">
-            <div class="card-title">Engineering Actions</div>
+            <div class="card-title" data-i18n="problemTitle">Problem</div>
+            <div class="bodycopy" style="margin-top:8px;font-size:14px;" data-i18n="project3Problem">
+              Created a portable desktop RF measurement enclosure with high isolation and geometric repeatability under tight size and weight limits.
+            </div>
+          </div>
+
+          <div style="margin-top:20px;">
+            <div class="card-title" data-i18n="actionsTitle">Engineering Actions</div>
             <ul class="clean">
-              <li><span class="dot"></span><span>Designed compact isolation-focused enclosure</span></li>
-              <li><span class="dot"></span><span>Created precision adjustable horn antenna fixture</span></li>
-              <li><span class="dot"></span><span>Implemented knife-edge conductive sealing for EMC</span></li>
-              <li><span class="dot"></span><span>Optimized absorber layout across a wide frequency range</span></li>
+              <li><span class="dot"></span><span data-i18n="project3Action1">Designed compact isolation-focused enclosure</span></li>
+              <li><span class="dot"></span><span data-i18n="project3Action2">Created precision adjustable horn antenna fixture</span></li>
+              <li><span class="dot"></span><span data-i18n="project3Action3">Implemented knife-edge conductive sealing for EMC</span></li>
+              <li><span class="dot"></span><span data-i18n="project3Action4">Optimized absorber layout across a wide frequency range</span></li>
             </ul>
           </div>
 
           <div style="margin-top:20px;">
-            <div class="card-title">Results</div>
+            <div class="card-title" data-i18n="resultsTitle">Results</div>
             <ul class="clean">
-              <li><span class="dot"></span><span>Achieved compact form factor with excellent repeatability</span></li>
-              <li><span class="dot"></span><span>Maintained high RF isolation across 1–67 GHz</span></li>
-              <li><span class="dot"></span><span>Balanced structural integrity with portability and usability</span></li>
+              <li><span class="dot"></span><span data-i18n="project3Result1">Achieved compact form factor with excellent repeatability</span></li>
+              <li><span class="dot"></span><span data-i18n="project3Result2">Maintained high RF isolation across 1–67 GHz</span></li>
+              <li><span class="dot"></span><span data-i18n="project3Result3">Balanced structural integrity with portability and usability</span></li>
             </ul>
           </div>
 
           <div class="tagrow">
-            <span class="pill">RF Shielding</span><span class="pill">EMC</span><span class="pill">GD&T</span><span class="pill">Portable Design</span>
+            <span class="pill">RF Shielding</span><span class="pill">EMC</span><span class="pill">GD&amp;T</span><span class="pill">Portable Design</span>
           </div>
         </div>
       </div>
@@ -635,39 +884,364 @@
 
     <section class="two-col">
       <div class="section">
-        <div class="section-eyebrow">Education</div>
-        <h2>Academic Background</h2>
+        <div class="section-eyebrow" data-i18n="educationEyebrow">Education</div>
+        <h2 data-i18n="educationTitle">Academic Background</h2>
+
         <div class="job" style="margin-top:20px;">
-          <h3>Bachelor of Science Degree</h3>
+          <h3 data-i18n="educationDegree">Bachelor of Science Degree</h3>
           <div class="muted" style="margin-top:6px;">Minghsin University of Science and Technology</div>
-          <!-- 與履歷年份一致 -->
-          <div class="muted" style="margin-top:12px;font-weight:600;">Sep 2006 – Jun 2010</div>
+          <div class="muted" style="margin-top:12px;font-weight:600;" data-i18n="educationDate">Sep 2006 – Jun 2010</div>
         </div>
       </div>
 
       <div id="contact" class="section contact">
-        <div class="section-eyebrow">Contact</div>
-        <h2>Ready for interviews, project discussions, and new opportunities</h2>
-        <div class="section-sub">
+        <div class="section-eyebrow" data-i18n="contactEyebrow">Contact</div>
+        <h2 data-i18n="contactTitle">Ready for interviews, project discussions, and new opportunities</h2>
+        <div class="section-sub" data-i18n="contactBody">
           You can download my full resume below, or reach out directly by email or LinkedIn.
         </div>
 
         <div class="contact-boxes" style="margin-top:20px;">
           <div class="contact-card">
-            <div class="contact-label">Email</div>
+            <div class="contact-label" data-i18n="contactEmail">Email</div>
             <a class="contact-link" href="mailto:jams923@hotmail.com">jams923@hotmail.com</a>
           </div>
+
           <div class="contact-card">
-            <div class="contact-label">LinkedIn</div>
-            <a class="contact-link" href="https://www.linkedin.com/in/chung-hsuan-huang-856a69372/" target="_blank" rel="noreferrer">View LinkedIn Profile</a>
+            <div class="contact-label" data-i18n="contactLinkedin">LinkedIn</div>
+            <a class="contact-link" href="https://www.linkedin.com/in/chung-hsuan-huang-856a69372/" target="_blank" rel="noreferrer" data-i18n="contactLinkedinLink">View LinkedIn Profile</a>
           </div>
         </div>
 
         <div class="contact-actions">
-          <a class="btn" style="background:#fff;color:#0f172a;" href="James_Huang_Resume.pdf" download aria-label="Download James Huang Resume PDF">Download Resume (PDF)</a>
+          <a class="btn" style="background:#fff;color:#0f172a;" href="James_Huang_Resume.pdf" download aria-label="Download James Huang Resume PDF" data-i18n="contactDownloadResume">Download Resume (PDF)</a>
         </div>
       </div>
     </section>
   </div>
+
+  <script>
+    const translations = {
+      en: {
+        navAbout: "About",
+        navExperience: "Experience",
+        navSkills: "Skills",
+        navProjects: "Projects",
+        navContact: "Contact",
+
+        heroBadge: "Mechanical Portfolio",
+        heroName: "黃仲瑄 / James Huang",
+        heroSubtitle: "Mechanical Design Engineer | RF Test Fixtures | Precision Mechanisms | Thermal Design",
+        heroBody: "Specialized in RF test systems, precision fixtures, thermal management, and manufacturable mechanical design. This version is built as a cleaner, more polished portfolio landing page for recruiting and resume use.",
+        heroBtnProjects: "View Featured Projects",
+        heroBtnContact: "Contact Me",
+
+        seekingRolesTitle: "Seeking Roles",
+        role1: "Mechanical Design Engineer",
+        role2: "RF / Test Fixture Design",
+        role3: "Precision Equipment / Automation",
+        role4: "Thermal / Enclosure Design",
+        coreStrengthsTitle: "Core Strengths",
+        quickValueTitle: "Quick Value",
+        quickValueBody: "Designed systems that improved repeatability, reduced setup time, and balanced engineering performance with manufacturing practicality.",
+
+        aboutEyebrow: "About",
+        aboutTitle: "Engineering focus built around precision, manufacturability, and real-world deployment",
+        aboutBody: "As a Mechanical Design Engineer at Ohmplus Technology Inc., I specialize in RF testing systems, thermal management, and precision mechanical design. With a strong foundation in SolidWorks, FEA analysis, and GD&T, I bring innovative solutions to complex engineering challenges.",
+
+        expEyebrow: "Experience",
+        expTitle: "Work Experience",
+
+        job1Title: "Mechanical Design Engineer",
+        job1Date: "June 2024 – Present",
+        job1Bullet1: "Designed RF testing fixtures and precision motion mechanisms to improve test stability and repeatability for antenna and module validation.",
+        job1Bullet2: "Developed manufacturable assemblies using SolidWorks, GD&T, and tolerance analysis to improve build consistency and reduce assembly risk.",
+        job1Bullet3: "Resolved assembly and debugging issues with RF and production teams, accelerating integration and prototype readiness.",
+
+        job2Title: "Product Manager",
+        job2Date: "June 2021 – June 2024",
+        job2Bullet1: "Managed RF measurement equipment programs from concept to production, aligning technical scope with schedule and manufacturing readiness.",
+        job2Bullet2: "Coordinated engineering, manufacturing, and quality teams to keep projects on track and reduce execution delays.",
+        job2Bullet3: "Delivered multiple projects on time while meeting quality requirements and cost targets.",
+
+        job3Title: "Research Assistant",
+        job3Date: "November 2020 – June 2021",
+        job3Bullet1: "Supported mechanical design research for precision measurement systems, improving test setup reliability and workflow consistency.",
+        job3Bullet2: "Assisted with experimental setup and data collection, helping maintain repeatable execution and clear technical records.",
+        job3Bullet3: "Contributed to technical documentation and publication support through structured engineering reporting.",
+
+        job4Title: "Laser Operator",
+        job4Date: "January 2018 – June 2020",
+        job4Bullet1: "Operated laser cutting equipment for precision manufacturing, maintaining dimensional accuracy and consistent output quality.",
+        job4Bullet2: "Maintained process control and equipment condition to support stable production performance.",
+        job4Bullet3: "Improved workflow efficiency through process optimization, reducing rework risk and supporting on-time delivery.",
+
+        skillsEyebrow: "Skills",
+        skillsTitle: "Technical Skill Set",
+        skillBox1Title: "Core Engineering",
+        skillBox2Title: "Analysis",
+        skillBox3Title: "Test & Manufacturing",
+        skillBox4Title: "Documentation",
+        skill1: "2D / 3D Mechanical Design",
+        skill2: "Precision Mechanism Design",
+        skill3: "Thermal Analysis",
+        skill4: "Structural Evaluation",
+        skill5: "Precision Assembly",
+        skill6: "Assembly & Validation",
+        skill7: "CNC Machining Coordination",
+        skill8: "FARO Arm Measurement",
+        skill9: "Quality Control",
+        skill10: "Technical Documentation",
+        skill11: "Engineering Reports & Specifications",
+        skill12: "Microsoft Office Suite",
+
+        projectsEyebrow: "Projects",
+        projectsTitle: "Featured Engineering Projects",
+        projectsBody: "A project-first layout makes your strongest technical work easier for hiring managers and engineering leads to scan quickly.",
+
+        metricStable: "Stable",
+        metricReusable: "Reusable",
+        metricDesktop: "Desktop",
+        metricHigh: "High",
+
+        problemTitle: "Problem",
+        actionsTitle: "Engineering Actions",
+        resultsTitle: "Results",
+
+        project1Title: "Vertical RF Testing System Development",
+        project1Date: "Lead Mechanical Engineer • May 2022 – September 2022",
+        project1Problem: "Built a vertical laboratory test infrastructure for antenna and wireless module evaluation with repeatable measurements, operator safety, and ergonomic use.",
+        project1Action1: "Designed modular reflector-based test geometry",
+        project1Action2: "Implemented automated DUT platform with lift and in-out motion",
+        project1Action3: "Created quick-change DUT mounting with locating pins and pneumatic pressing",
+        project1Action4: "Validated design with FEA and laser alignment calibration",
+        project1Result1: "Material change time reduced from 6 minutes to under 2 minutes",
+        project1Result2: "Successfully demonstrated at the 2023 International Microwave Symposium",
+        project1Result3: "Achieved repeatable, stable RF measurements meeting design thresholds",
+
+        project2Title: "RF Module Design – Beamforming & Up/Down Converter",
+        project2Date: "Lead Mechanical Design Engineer • October 2024 – December 2024",
+        project2Problem: "Designed reusable RF modules for a university lab while balancing thermal performance, EMC compliance, safety, and ease of use.",
+        project2Action1: "Developed thermal management for compact modules",
+        project2Action2: "Implemented EMC-compliant housing with conductive seams",
+        project2Action3: "Optimized heatsink geometry for natural convection",
+        project2Action4: "Standardized architecture for manufacturing efficiency",
+        project2Result1: "Reduced lead time and manufacturing cost through reusable architecture",
+        project2Result2: "Met all thermal and EMC targets with 100% End-of-Line pass rate",
+        project2Result3: "Successfully deployed in a teaching laboratory",
+
+        project3Title: "Desktop High-Frequency RF Test Chamber",
+        project3Date: "Mechanical Design Engineer • May 2025 – August 2025",
+        project3Problem: "Created a portable desktop RF measurement enclosure with high isolation and geometric repeatability under tight size and weight limits.",
+        project3Action1: "Designed compact isolation-focused enclosure",
+        project3Action2: "Created precision adjustable horn antenna fixture",
+        project3Action3: "Implemented knife-edge conductive sealing for EMC",
+        project3Action4: "Optimized absorber layout across a wide frequency range",
+        project3Result1: "Achieved compact form factor with excellent repeatability",
+        project3Result2: "Maintained high RF isolation across 1–67 GHz",
+        project3Result3: "Balanced structural integrity with portability and usability",
+
+        educationEyebrow: "Education",
+        educationTitle: "Academic Background",
+        educationDegree: "Bachelor of Science Degree",
+        educationDate: "Sep 2006 – Jun 2010",
+
+        contactEyebrow: "Contact",
+        contactTitle: "Ready for interviews, project discussions, and new opportunities",
+        contactBody: "You can download my full resume below, or reach out directly by email or LinkedIn.",
+        contactEmail: "Email",
+        contactLinkedin: "LinkedIn",
+        contactLinkedinLink: "View LinkedIn Profile",
+        contactDownloadResume: "Download Resume (PDF)"
+      },
+
+      "zh-Hant": {
+        navAbout: "關於我",
+        navExperience: "工作經歷",
+        navSkills: "專業技能",
+        navProjects: "專案作品",
+        navContact: "聯絡方式",
+
+        heroBadge: "機械工程作品集",
+        heroName: "黃仲瑄 / James Huang",
+        heroSubtitle: "機械設計工程師｜RF 測試治具｜精密機構｜熱設計",
+        heroBody: "專注於 RF 測試系統、精密治具、熱管理，以及兼顧量產可行性的機械設計。此版本以更乾淨、專業的方式呈現，適合作為求職與履歷展示用的個人作品集首頁。",
+        heroBtnProjects: "查看精選專案",
+        heroBtnContact: "聯絡我",
+
+        seekingRolesTitle: "求職方向",
+        role1: "機械設計工程師",
+        role2: "RF／測試治具設計",
+        role3: "精密設備／自動化",
+        role4: "熱設計／機構外殼設計",
+        coreStrengthsTitle: "核心強項",
+        quickValueTitle: "快速價值",
+        quickValueBody: "曾設計可提升重複性、縮短換料時間，並兼顧工程效能與製造可行性的系統。",
+
+        aboutEyebrow: "關於我",
+        aboutTitle: "以精度、可製造性與實際落地為核心的工程設計",
+        aboutBody: "我目前在 Ohmplus Technology Inc. 擔任機械設計工程師，專長涵蓋 RF 測試系統、熱管理與精密機構設計。憑藉 SolidWorks、FEA 分析與 GD&T 的扎實基礎，我能為複雜工程挑戰提出可執行且具創新性的解決方案。",
+
+        expEyebrow: "工作經歷",
+        expTitle: "工作經驗",
+
+        job1Title: "機械設計工程師",
+        job1Date: "2024 年 6 月 – 至今",
+        job1Bullet1: "設計 RF 測試治具與精密運動機構，提升天線與模組驗證的測試穩定性與重複性。",
+        job1Bullet2: "運用 SolidWorks、GD&T 與公差分析開發可製造組件，提升組裝一致性並降低風險。",
+        job1Bullet3: "與 RF 與生產團隊協作，解決組裝與除錯問題，加速整合與原型完成。",
+
+        job2Title: "產品經理",
+        job2Date: "2021 年 6 月 – 2024 年 6 月",
+        job2Bullet1: "管理 RF 量測設備專案，從概念到量產，兼顧技術範疇、時程與製造就緒度。",
+        job2Bullet2: "協調工程、製造與品質團隊，降低執行延誤並推動專案進度。",
+        job2Bullet3: "如期完成多項專案，同時達成品質與成本目標。",
+
+        job3Title: "研究助理",
+        job3Date: "2020 年 11 月 – 2021 年 6 月",
+        job3Bullet1: "支援精密量測系統的機構研究設計，提升測試架設可靠度與作業一致性。",
+        job3Bullet2: "協助實驗架設與資料收集，維持可重複執行與清楚的技術紀錄。",
+        job3Bullet3: "透過結構化工程報告支援技術文件與研究成果整理。",
+
+        job4Title: "雷射機操作員",
+        job4Date: "2018 年 1 月 – 2020 年 6 月",
+        job4Bullet1: "操作雷射切割設備進行精密製造，維持尺寸精度與穩定品質。",
+        job4Bullet2: "維持製程控制與設備狀態，支援穩定的生產表現。",
+        job4Bullet3: "透過流程優化提升效率，降低重工風險並支援準時交付。",
+
+        skillsEyebrow: "專業技能",
+        skillsTitle: "技術能力",
+        skillBox1Title: "核心工程能力",
+        skillBox2Title: "分析能力",
+        skillBox3Title: "測試與製造",
+        skillBox4Title: "文件能力",
+        skill1: "2D／3D 機械設計",
+        skill2: "精密機構設計",
+        skill3: "熱分析",
+        skill4: "結構評估",
+        skill5: "精密組裝",
+        skill6: "組裝與驗證",
+        skill7: "CNC 加工協調",
+        skill8: "FARO Arm 量測",
+        skill9: "品質控制",
+        skill10: "技術文件撰寫",
+        skill11: "工程報告與規格書",
+        skill12: "Microsoft Office",
+
+        projectsEyebrow: "專案作品",
+        projectsTitle: "精選工程專案",
+        projectsBody: "以專案為主的版面配置，能讓招聘主管與工程主管更快速掌握我最具代表性的技術成果。",
+
+        metricStable: "穩定",
+        metricReusable: "可重複使用",
+        metricDesktop: "桌上型",
+        metricHigh: "高",
+
+        problemTitle: "問題",
+        actionsTitle: "工程作法",
+        resultsTitle: "成果",
+
+        project1Title: "垂直式 RF 測試系統開發",
+        project1Date: "主責機構工程師 • 2022 年 5 月 – 2022 年 9 月",
+        project1Problem: "建置垂直式實驗室測試系統，用於天線與無線模組量測，兼顧重複性、安全性與操作便利性。",
+        project1Action1: "設計模組化反射面測試幾何",
+        project1Action2: "導入具升降與進出動作的自動化 DUT 平台",
+        project1Action3: "建立含定位銷與氣壓壓持的快速換治具機構",
+        project1Action4: "透過 FEA 與雷射校正驗證設計",
+        project1Result1: "換料時間由 6 分鐘縮短至 2 分鐘內",
+        project1Result2: "成功於 2023 International Microwave Symposium 展出",
+        project1Result3: "達成可重複且穩定的 RF 量測結果",
+
+        project2Title: "RF 模組設計－波束成形與升降頻模組",
+        project2Date: "主責機構設計工程師 • 2024 年 10 月 – 2024 年 12 月",
+        project2Problem: "為大學實驗室設計可重複使用的 RF 模組，兼顧熱效能、EMC、安全性與使用便利性。",
+        project2Action1: "為緊湊型模組建立熱管理設計",
+        project2Action2: "導入具導電接縫的 EMC 外殼結構",
+        project2Action3: "優化散熱片幾何以提升自然對流效率",
+        project2Action4: "標準化架構以提升製造效率",
+        project2Result1: "透過可重複使用架構降低交期與製造成本",
+        project2Result2: "達成熱與 EMC 目標，End-of-Line 通過率 100%",
+        project2Result3: "成功導入教學實驗室使用",
+
+        project3Title: "桌上型高頻 RF 測試箱",
+        project3Date: "機械設計工程師 • 2025 年 5 月 – 2025 年 8 月",
+        project3Problem: "在尺寸與重量受限下，開發具高隔離性與幾何重複性的可攜式桌上型 RF 量測箱。",
+        project3Action1: "設計以隔離效能為優先的緊湊型外箱",
+        project3Action2: "設計可精密調整的喇叭天線治具",
+        project3Action3: "導入 knife-edge 導電密封以提升 EMC",
+        project3Action4: "針對寬頻範圍優化吸波材配置",
+        project3Result1: "在緊湊尺寸下達成良好重複性",
+        project3Result2: "於 1–67 GHz 範圍維持高 RF 隔離效果",
+        project3Result3: "兼顧結構強度、可攜性與操作性",
+
+        educationEyebrow: "學歷",
+        educationTitle: "學術背景",
+        educationDegree: "理學學士",
+        educationDate: "2006 年 9 月 – 2010 年 6 月",
+
+        contactEyebrow: "聯絡方式",
+        contactTitle: "歡迎面試邀約、專案討論與新的工作機會",
+        contactBody: "你可以在下方下載我的完整履歷，或直接透過電子郵件與 LinkedIn 與我聯繫。",
+        contactEmail: "電子郵件",
+        contactLinkedin: "LinkedIn",
+        contactLinkedinLink: "查看 LinkedIn 個人檔案",
+        contactDownloadResume: "下載履歷（PDF）"
+      }
+    };
+
+    function applyLanguage(lang) {
+      document.documentElement.lang = lang === "zh-Hant" ? "zh-Hant" : "en";
+      localStorage.setItem("portfolioLanguage", lang);
+
+      const languageOptionEn = document.querySelector('#languageSelect option[value="en"]');
+      const languageOptionZh = document.querySelector('#languageSelect option[value="zh-Hant"]');
+      const themeOptionLight = document.querySelector('#themeSelect option[value="light"]');
+      const themeOptionDark = document.querySelector('#themeSelect option[value="dark"]');
+
+      if (lang === "zh-Hant") {
+        languageOptionEn.textContent = "英文";
+        languageOptionZh.textContent = "繁體中文";
+        themeOptionLight.textContent = "亮色";
+        themeOptionDark.textContent = "深色";
+      } else {
+        languageOptionEn.textContent = "English";
+        languageOptionZh.textContent = "繁體中文";
+        themeOptionLight.textContent = "Light";
+        themeOptionDark.textContent = "Dark";
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    function applyTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("portfolioTheme", theme);
+    }
+
+    const languageSelect = document.getElementById("languageSelect");
+    const themeSelect = document.getElementById("themeSelect");
+
+    const savedLanguage = localStorage.getItem("portfolioLanguage") || "en";
+    const savedTheme = localStorage.getItem("portfolioTheme") || "light";
+
+    languageSelect.value = savedLanguage;
+    themeSelect.value = savedTheme;
+
+    applyLanguage(savedLanguage);
+    applyTheme(savedTheme);
+
+    languageSelect.addEventListener("change", (e) => {
+      applyLanguage(e.target.value);
+    });
+
+    themeSelect.addEventListener("change", (e) => {
+      applyTheme(e.target.value);
+    });
+  </script>
 </body>
 </html>
