@@ -163,9 +163,7 @@
       flex-wrap: wrap;
     }
 
-    .nav a:hover {
-      color: var(--text);
-    }
+    .nav a:hover { color: var(--text); }
 
     .nav a.active {
       color: var(--text);
@@ -588,6 +586,102 @@
       gap: 12px;
     }
 
+    .back-to-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 2500;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--border-2);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-strong);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition:
+        opacity .22s ease,
+        visibility .22s ease,
+        transform .22s ease,
+        box-shadow .22s ease;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover,
+    .back-to-top:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.16);
+    }
+
+    .btn,
+    .project,
+    .job,
+    .skill-box,
+    .contact-card,
+    .card {
+      transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease,
+        background-color .22s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    }
+
+    .project:hover,
+    .project:focus-within {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(0,0,0,.12);
+      border-color: var(--border-2);
+    }
+
+    .job:hover,
+    .job:focus-within,
+    .skill-box:hover,
+    .skill-box:focus-within,
+    .contact-card:hover,
+    .contact-card:focus-within,
+    .card:hover,
+    .card:focus-within {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.10);
+      border-color: var(--border-2);
+    }
+
+    body[data-theme="dark"] .btn:hover,
+    body[data-theme="dark"] .btn:focus-visible {
+      box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    }
+
+    body[data-theme="dark"] .project:hover,
+    body[data-theme="dark"] .project:focus-within,
+    body[data-theme="dark"] .job:hover,
+    body[data-theme="dark"] .job:focus-within,
+    body[data-theme="dark"] .skill-box:hover,
+    body[data-theme="dark"] .skill-box:focus-within,
+    body[data-theme="dark"] .contact-card:hover,
+    body[data-theme="dark"] .contact-card:focus-within,
+    body[data-theme="dark"] .card:hover,
+    body[data-theme="dark"] .card:focus-within,
+    body[data-theme="dark"] .back-to-top:hover,
+    body[data-theme="dark"] .back-to-top:focus-visible {
+      box-shadow: 0 14px 28px rgba(0,0,0,.38);
+    }
+
     @media (max-width: 1024px) {
       .hero, .projects, .grid-4, .two-col { grid-template-columns: 1fr; }
       .project { min-height: 0; height: auto; }
@@ -659,10 +753,30 @@
         width: 100%;
       }
 
+      .back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+      }
+
       h1 { font-size: 38px; }
       .hero { padding: 24px; }
       .contact-boxes { grid-template-columns: 1fr; }
       .job-top { flex-direction: column; }
+    }
+
+    @media (hover: none) {
+      .btn:hover,
+      .project:hover,
+      .job:hover,
+      .skill-box:hover,
+      .contact-card:hover,
+      .card:hover {
+        transform: none;
+        box-shadow: var(--shadow);
+      }
     }
   </style>
 </head>
@@ -1073,6 +1187,10 @@
     </section>
   </div>
 
+  <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top">
+    ↑
+  </button>
+
   <script>
     const translations = {
       en: {
@@ -1083,6 +1201,7 @@
         navContact: "Contact",
         menuLabel: "Menu",
         loaderLabel: "Loading",
+        backToTopLabel: "Back to top",
 
         heroBadge: "Mechanical Portfolio",
         heroName: "黃仲瑄 / James Huang",
@@ -1218,6 +1337,7 @@
         navContact: "聯絡方式",
         menuLabel: "選單",
         loaderLabel: "載入中",
+        backToTopLabel: "返回頂部",
 
         heroBadge: "機械工程作品集",
         heroName: "黃仲瑄 / James Huang",
@@ -1378,6 +1498,13 @@
       if (loaderLabel) {
         loaderLabel.textContent = translations[lang]?.loaderLabel || "Loading";
       }
+
+      const backToTop = document.getElementById('backToTop');
+      if (backToTop) {
+        const label = translations[lang]?.backToTopLabel || "Back to top";
+        backToTop.setAttribute('aria-label', label);
+        backToTop.setAttribute('title', label);
+      }
     }
 
     function applyTheme(theme) {
@@ -1388,26 +1515,72 @@
     const pageLoader = document.getElementById('pageLoader');
     const loaderBar = document.getElementById('loaderBar');
     const loaderPercent = document.getElementById('loaderPercent');
+
     let currentProgress = 0;
     let targetProgress = 0;
+    let loaderAnimationId = null;
+    let loaderFinished = false;
+    let loaderFallbackTimer = null;
 
     function setLoaderProgress(value) {
+      if (loaderFinished) return;
       targetProgress = Math.max(targetProgress, Math.min(100, value));
     }
 
+    function renderLoader(value) {
+      const shownValue = Math.max(0, Math.min(100, Math.round(value)));
+      loaderBar.style.width = shownValue + '%';
+      loaderPercent.textContent = shownValue + '%';
+    }
+
     function animateLoader() {
+      if (loaderFinished) return;
+
       if (currentProgress < targetProgress) {
-        currentProgress += Math.max(1, (targetProgress - currentProgress) * 0.08);
+        currentProgress += Math.max(0.8, (targetProgress - currentProgress) * 0.08);
         if (currentProgress > targetProgress) currentProgress = targetProgress;
       }
 
-      const shownValue = Math.round(currentProgress);
-      loaderBar.style.width = shownValue + '%';
-      loaderPercent.textContent = shownValue + '%';
+      renderLoader(currentProgress);
 
-      if (shownValue < 100) {
-        requestAnimationFrame(animateLoader);
+      if (currentProgress < 100) {
+        loaderAnimationId = requestAnimationFrame(animateLoader);
       }
+    }
+
+    function completeLoader() {
+      if (loaderFinished) return;
+      loaderFinished = true;
+
+      if (loaderFallbackTimer) {
+        clearTimeout(loaderFallbackTimer);
+        loaderFallbackTimer = null;
+      }
+
+      if (loaderAnimationId) {
+        cancelAnimationFrame(loaderAnimationId);
+        loaderAnimationId = null;
+      }
+
+      let finishValue = Math.max(currentProgress, 96);
+
+      const finishStep = setInterval(() => {
+        finishValue += 2.5;
+
+        if (finishValue >= 100) {
+          finishValue = 100;
+          renderLoader(finishValue);
+          clearInterval(finishStep);
+
+          setTimeout(() => {
+            pageLoader.classList.add('hidden');
+          }, 180);
+
+          return;
+        }
+
+        renderLoader(finishValue);
+      }, 16);
     }
 
     function startLoader() {
@@ -1415,9 +1588,9 @@
       animateLoader();
 
       if (document.readyState === 'interactive') {
-        setLoaderProgress(35);
+        setLoaderProgress(40);
       } else if (document.readyState === 'complete') {
-        setLoaderProgress(80);
+        setLoaderProgress(70);
       }
 
       const pageImages = Array.from(document.images).filter(img => !img.closest('#pageLoader'));
@@ -1425,12 +1598,13 @@
       let loadedImages = 0;
 
       if (totalImages === 0) {
-        setLoaderProgress(75);
+        setLoaderProgress(80);
       } else {
         pageImages.forEach(img => {
           const markLoaded = () => {
+            if (loaderFinished) return;
             loadedImages++;
-            const imageProgress = 20 + (loadedImages / totalImages) * 55;
+            const imageProgress = 20 + (loadedImages / totalImages) * 65;
             setLoaderProgress(imageProgress);
           };
 
@@ -1445,44 +1619,27 @@
 
       document.addEventListener('readystatechange', () => {
         if (document.readyState === 'interactive') {
-          setLoaderProgress(45);
+          setLoaderProgress(50);
         }
         if (document.readyState === 'complete') {
-          setLoaderProgress(88);
+          setLoaderProgress(92);
         }
       });
 
       window.addEventListener('load', () => {
-        setLoaderProgress(100);
+        completeLoader();
+      }, { once: true });
 
-        const finish = () => {
-          loaderBar.style.width = '100%';
-          loaderPercent.textContent = '100%';
-
-          setTimeout(() => {
-            pageLoader.classList.add('hidden');
-          }, 220);
-        };
-
-        const smoothFinish = setInterval(() => {
-          if (currentProgress >= 99) {
-            clearInterval(smoothFinish);
-            currentProgress = 100;
-            finish();
-          } else {
-            currentProgress += 1.5;
-            const shownValue = Math.min(100, Math.round(currentProgress));
-            loaderBar.style.width = shownValue + '%';
-            loaderPercent.textContent = shownValue + '%';
-          }
-        }, 16);
-      });
+      loaderFallbackTimer = setTimeout(() => {
+        completeLoader();
+      }, 2500);
     }
 
     const languageSelect = document.getElementById("languageSelect");
     const themeSelect = document.getElementById("themeSelect");
     const menuToggle = document.getElementById("menuToggle");
     const mobileMenu = document.getElementById("mobileMenu");
+    const backToTopButton = document.getElementById('backToTop');
 
     const savedLanguage = localStorage.getItem("portfolioLanguage") || "en";
     const savedTheme = localStorage.getItem("portfolioTheme") || "light";
@@ -1548,6 +1705,21 @@
 
     observedSections.forEach(section => sectionObserver.observe(section));
 
+    function toggleBackToTop() {
+      const shouldShow = window.scrollY > 420;
+      backToTopButton.classList.toggle('show', shouldShow);
+    }
+
+    window.addEventListener('scroll', toggleBackToTop, { passive: true });
+
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    toggleBackToTop();
     startLoader();
   </script>
 </body>
