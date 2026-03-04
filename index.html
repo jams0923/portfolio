@@ -144,6 +144,11 @@
       margin-bottom: 24px;
     }
 
+    /* 避免 sticky header 蓋住錨點 */
+    section[id] {
+      scroll-margin-top: 110px;
+    }
+
     .hero {
       display: grid;
       grid-template-columns: 1.35fr .65fr;
@@ -521,7 +526,9 @@
 
     @media (max-width: 768px) {
       .header {
-        position: static;
+        position: sticky;
+        top: 8px;
+        z-index: 1000;
         border-radius: 16px;
         flex-wrap: wrap;
       }
@@ -539,8 +546,12 @@
         flex-direction: column;
         align-items: stretch;
         gap: 14px;
-        padding-top: 12px;
-        border-top: 1px solid var(--border);
+        padding: 12px;
+        margin-top: 8px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card);
+        box-shadow: var(--shadow-strong);
       }
 
       .header-right.open {
