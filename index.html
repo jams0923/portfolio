@@ -120,6 +120,21 @@
       cursor: pointer;
     }
 
+    .menu-toggle {
+      display: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-2);
+      background: var(--card);
+      color: var(--btn-light-text);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .menu-toggle:hover { opacity: 0.95; }
+
     .section {
       background: var(--card);
       border: 1px solid var(--border);
@@ -508,21 +523,60 @@
       .header {
         position: static;
         border-radius: 16px;
+        flex-wrap: wrap;
       }
+
+      .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+      }
+
       .header-right {
+        display: none;
         width: 100%;
-        justify-content: flex-start;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
       }
+
+      .header-right.open {
+        display: flex;
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .nav a {
+        display: block;
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: var(--card-soft);
+        border: 1px solid var(--border);
+      }
+
       .toolbar {
         width: 100%;
-        justify-content: flex-start;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
       }
+
+      .toolbar-select {
+        width: 100%;
+      }
+
       h1 { font-size: 38px; }
       .hero { padding: 24px; }
       .contact-boxes { grid-template-columns: 1fr; }
       .job-top { flex-direction: column; }
-      .nav { gap: 12px; }
-      .toolbar-select { width: auto; }
     }
   </style>
 </head>
@@ -532,7 +586,11 @@
     <header class="header">
       <div style="font-size:14px;font-weight:700;">James Huang</div>
 
-      <div class="header-right">
+      <button id="menuToggle" class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        ☰ <span data-i18n="menuLabel">Menu</span>
+      </button>
+
+      <div class="header-right" id="mobileMenu">
         <nav class="nav">
           <a href="#about" data-i18n="navAbout">About</a>
           <a href="#experience" data-i18n="navExperience">Experience</a>
@@ -737,7 +795,6 @@
       </div>
 
       <div class="projects" style="margin-top:20px;">
-        <!-- Project 1 -->
         <div class="project">
           <div class="project-visual single">
             <img src="https://res.cloudinary.com/dv0jk958g/image/upload/v1772599026/Vertical_RF_Testing_System_Development_hvfik3.jpg" alt="Vertical RF testing system overview">
@@ -783,7 +840,6 @@
           </div>
         </div>
 
-        <!-- Project 2 -->
         <div class="project">
           <div class="project-visual double">
             <div class="img-wrap">
@@ -834,7 +890,6 @@
           </div>
         </div>
 
-        <!-- Project 3 -->
         <div class="project">
           <div class="project-visual single">
             <img src="https://res.cloudinary.com/dv0jk958g/image/upload/v1772598989/Desktop_High-Frequency_RF_Test_Chamber_lvbdts.jpg" alt="Desktop RF test chamber exterior">
@@ -928,6 +983,7 @@
         navSkills: "Skills",
         navProjects: "Projects",
         navContact: "Contact",
+        menuLabel: "Menu",
 
         heroBadge: "Mechanical Portfolio",
         heroName: "黃仲瑄 / James Huang",
@@ -1061,6 +1117,7 @@
         navSkills: "專業技能",
         navProjects: "專案作品",
         navContact: "聯絡方式",
+        menuLabel: "選單",
 
         heroBadge: "機械工程作品集",
         heroName: "黃仲瑄 / James Huang",
@@ -1225,6 +1282,8 @@
 
     const languageSelect = document.getElementById("languageSelect");
     const themeSelect = document.getElementById("themeSelect");
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
 
     const savedLanguage = localStorage.getItem("portfolioLanguage") || "en";
     const savedTheme = localStorage.getItem("portfolioTheme") || "light";
@@ -1241,6 +1300,27 @@
 
     themeSelect.addEventListener("change", (e) => {
       applyTheme(e.target.value);
+    });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          mobileMenu.classList.remove('open');
+          menuToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        mobileMenu.classList.remove('open');
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
     });
   </script>
 </body>
