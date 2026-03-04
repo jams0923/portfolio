@@ -61,6 +61,69 @@
 
     a { color: inherit; text-decoration: none; }
 
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(241, 245, 249, 0.92);
+      backdrop-filter: blur(6px);
+      transition: opacity .35s ease, visibility .35s ease;
+    }
+
+    body[data-theme="dark"] .page-loader {
+      background: rgba(2, 6, 23, 0.92);
+    }
+
+    .page-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-box {
+      width: min(420px, calc(100vw - 40px));
+      padding: 22px 20px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .loader-text {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .loader-track {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--card-soft);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .loader-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0f172a, #475569);
+      transition: width .22s ease;
+    }
+
+    body[data-theme="dark"] .loader-bar {
+      background: linear-gradient(90deg, #e2e8f0, #94a3b8);
+    }
+
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -100,7 +163,14 @@
       flex-wrap: wrap;
     }
 
-    .nav a:hover { color: var(--text); }
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    .nav a.active {
+      color: var(--text);
+      font-weight: 700;
+    }
 
     .toolbar {
       display: flex;
@@ -144,7 +214,6 @@
       margin-bottom: 24px;
     }
 
-    /* 避免 sticky header 蓋住錨點 */
     section[id] {
       scroll-margin-top: 110px;
     }
@@ -573,6 +642,12 @@
         border: 1px solid var(--border);
       }
 
+      .nav a.active {
+        background: var(--card);
+        border-color: var(--border-2);
+        box-shadow: var(--shadow);
+      }
+
       .toolbar {
         width: 100%;
         display: grid;
@@ -593,6 +668,18 @@
 </head>
 
 <body data-theme="light">
+  <div id="pageLoader" class="page-loader" aria-live="polite" aria-label="Page loading">
+    <div class="loader-box">
+      <div class="loader-text">
+        <span id="loaderLabel">Loading</span>
+        <span id="loaderPercent">0%</span>
+      </div>
+      <div class="loader-track">
+        <div id="loaderBar" class="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <header class="header">
       <div style="font-size:14px;font-weight:700;">James Huang</div>
@@ -603,11 +690,11 @@
 
       <div class="header-right" id="mobileMenu">
         <nav class="nav">
-          <a href="#about" data-i18n="navAbout">About</a>
-          <a href="#experience" data-i18n="navExperience">Experience</a>
-          <a href="#skills" data-i18n="navSkills">Skills</a>
-          <a href="#projects" data-i18n="navProjects">Projects</a>
-          <a href="#contact" data-i18n="navContact">Contact</a>
+          <a href="#about" data-section="about" data-i18n="navAbout">About</a>
+          <a href="#experience" data-section="experience" data-i18n="navExperience">Experience</a>
+          <a href="#skills" data-section="skills" data-i18n="navSkills">Skills</a>
+          <a href="#projects" data-section="projects" data-i18n="navProjects">Projects</a>
+          <a href="#contact" data-section="contact" data-i18n="navContact">Contact</a>
         </nav>
 
         <div class="toolbar">
@@ -995,6 +1082,7 @@
         navProjects: "Projects",
         navContact: "Contact",
         menuLabel: "Menu",
+        loaderLabel: "Loading",
 
         heroBadge: "Mechanical Portfolio",
         heroName: "黃仲瑄 / James Huang",
@@ -1129,6 +1217,7 @@
         navProjects: "專案作品",
         navContact: "聯絡方式",
         menuLabel: "選單",
+        loaderLabel: "載入中",
 
         heroBadge: "機械工程作品集",
         heroName: "黃仲瑄 / James Huang",
@@ -1284,11 +1373,110 @@
           el.textContent = translations[lang][key];
         }
       });
+
+      const loaderLabel = document.getElementById('loaderLabel');
+      if (loaderLabel) {
+        loaderLabel.textContent = translations[lang]?.loaderLabel || "Loading";
+      }
     }
 
     function applyTheme(theme) {
       document.body.setAttribute("data-theme", theme);
       localStorage.setItem("portfolioTheme", theme);
+    }
+
+    const pageLoader = document.getElementById('pageLoader');
+    const loaderBar = document.getElementById('loaderBar');
+    const loaderPercent = document.getElementById('loaderPercent');
+    let currentProgress = 0;
+    let targetProgress = 0;
+
+    function setLoaderProgress(value) {
+      targetProgress = Math.max(targetProgress, Math.min(100, value));
+    }
+
+    function animateLoader() {
+      if (currentProgress < targetProgress) {
+        currentProgress += Math.max(1, (targetProgress - currentProgress) * 0.08);
+        if (currentProgress > targetProgress) currentProgress = targetProgress;
+      }
+
+      const shownValue = Math.round(currentProgress);
+      loaderBar.style.width = shownValue + '%';
+      loaderPercent.textContent = shownValue + '%';
+
+      if (shownValue < 100) {
+        requestAnimationFrame(animateLoader);
+      }
+    }
+
+    function startLoader() {
+      setLoaderProgress(8);
+      animateLoader();
+
+      if (document.readyState === 'interactive') {
+        setLoaderProgress(35);
+      } else if (document.readyState === 'complete') {
+        setLoaderProgress(80);
+      }
+
+      const pageImages = Array.from(document.images).filter(img => !img.closest('#pageLoader'));
+      const totalImages = pageImages.length;
+      let loadedImages = 0;
+
+      if (totalImages === 0) {
+        setLoaderProgress(75);
+      } else {
+        pageImages.forEach(img => {
+          const markLoaded = () => {
+            loadedImages++;
+            const imageProgress = 20 + (loadedImages / totalImages) * 55;
+            setLoaderProgress(imageProgress);
+          };
+
+          if (img.complete) {
+            markLoaded();
+          } else {
+            img.addEventListener('load', markLoaded, { once: true });
+            img.addEventListener('error', markLoaded, { once: true });
+          }
+        });
+      }
+
+      document.addEventListener('readystatechange', () => {
+        if (document.readyState === 'interactive') {
+          setLoaderProgress(45);
+        }
+        if (document.readyState === 'complete') {
+          setLoaderProgress(88);
+        }
+      });
+
+      window.addEventListener('load', () => {
+        setLoaderProgress(100);
+
+        const finish = () => {
+          loaderBar.style.width = '100%';
+          loaderPercent.textContent = '100%';
+
+          setTimeout(() => {
+            pageLoader.classList.add('hidden');
+          }, 220);
+        };
+
+        const smoothFinish = setInterval(() => {
+          if (currentProgress >= 99) {
+            clearInterval(smoothFinish);
+            currentProgress = 100;
+            finish();
+          } else {
+            currentProgress += 1.5;
+            const shownValue = Math.min(100, Math.round(currentProgress));
+            loaderBar.style.width = shownValue + '%';
+            loaderPercent.textContent = shownValue + '%';
+          }
+        }, 16);
+      });
     }
 
     const languageSelect = document.getElementById("languageSelect");
@@ -1333,6 +1521,34 @@
         menuToggle.setAttribute("aria-expanded", "false");
       }
     });
+
+    const navLinks = document.querySelectorAll('.nav a[data-section]');
+    const observedSections = document.querySelectorAll('section[id]');
+
+    function setActiveNav(sectionId) {
+      navLinks.forEach(link => {
+        const isMatch = link.getAttribute('data-section') === sectionId;
+        link.classList.toggle('active', isMatch);
+      });
+    }
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visibleEntries = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleEntries.length > 0) {
+        setActiveNav(visibleEntries[0].target.id);
+      }
+    }, {
+      root: null,
+      rootMargin: '-20% 0px -55% 0px',
+      threshold: [0.2, 0.35, 0.5, 0.7]
+    });
+
+    observedSections.forEach(section => sectionObserver.observe(section));
+
+    startLoader();
   </script>
 </body>
 </html>
