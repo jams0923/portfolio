@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>James Huang Portfolio</title>
+  <title>James Huang | Mechanical Design Engineer Portfolio</title>
+  <meta name="description" content="Portfolio of James Huang, Mechanical Design Engineer specializing in RF test fixtures, precision mechanisms, thermal design, and manufacturable engineering systems." />
   <style>
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -183,7 +184,9 @@
       grid-template-columns: repeat(3,1fr);
     }
     .project {
-      min-height: 1120px;
+      /* 原本是 min-height: 1120px; */
+      min-height: 0;
+      height: 100%;
       display: flex;
       flex-direction: column;
       border: 1px solid #e2e8f0;
@@ -200,7 +203,6 @@
       background: #e2e8f0;
     }
 
-    /* Updated image behavior */
     .project-visual.single {
       height: 360px;
       background: #fff;
@@ -326,7 +328,7 @@
 
     @media (max-width: 1024px) {
       .hero, .projects, .grid-4, .two-col { grid-template-columns: 1fr; }
-      .project { min-height: 0; }
+      .project { min-height: 0; height: auto; }
     }
 
     @media (max-width: 768px) {
@@ -424,7 +426,8 @@
 
         <div class="job">
           <div class="job-top">
-            <div><h3>Product Manager</h3><div class="muted">Ohmplus Technology Inc.</div></div>
+            <!-- 與履歷名稱一致 -->
+            <div><h3>Product Management</h3><div class="muted">Ohmplus Technology Inc.</div></div>
             <div class="muted" style="font-weight:600;">June 2021 – June 2024</div>
           </div>
           <ul class="clean">
@@ -637,7 +640,8 @@
         <div class="job" style="margin-top:20px;">
           <h3>Bachelor of Science Degree</h3>
           <div class="muted" style="margin-top:6px;">Minghsin University of Science and Technology</div>
-          <div class="muted" style="margin-top:12px;font-weight:600;">Sep 2006 – Jun 2009</div>
+          <!-- 與履歷年份一致 -->
+          <div class="muted" style="margin-top:12px;font-weight:600;">Sep 2006 – Jun 2010</div>
         </div>
       </div>
 
@@ -645,7 +649,7 @@
         <div class="section-eyebrow">Contact</div>
         <h2>Ready for interviews, project discussions, and new opportunities</h2>
         <div class="section-sub">
-          This HTML version is ready to share. Keep <strong>Resume.pdf</strong> in the same folder as this HTML file so the download button works.
+          You can download my full resume below, or reach out directly by email or LinkedIn.
         </div>
 
         <div class="contact-boxes" style="margin-top:20px;">
@@ -660,7 +664,7 @@
         </div>
 
         <div class="contact-actions">
-          <a class="btn" style="background:#fff;color:#0f172a;" href="Resume.pdf" download>Download Resume (PDF)</a>
+          <a class="btn" style="background:#fff;color:#0f172a;" href="James_Huang_Resume.pdf" download aria-label="Download James Huang Resume PDF">Download Resume (PDF)</a>
         </div>
       </div>
     </section>
