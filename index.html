@@ -823,6 +823,73 @@
       box-shadow: none;
     }
 
+
+    .resume-download-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .resume-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--contact-text);
+    }
+
+    .resume-form-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .resume-input {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--contact-text);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .resume-input::placeholder {
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    .resume-input:focus {
+      border-color: rgba(255, 255, 255, 0.62);
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .resume-input.invalid {
+      border-color: #fca5a5;
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+    }
+
+    .resume-help,
+    .resume-status {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .resume-status {
+      min-height: 22px;
+      font-weight: 600;
+    }
+
+    .resume-status.is-error {
+      color: #fecaca;
+    }
+
+    .resume-status.is-success {
+      color: #bbf7d0;
+    }
+
     .contact-boxes {
       display: grid;
       gap: 16px;
@@ -1378,7 +1445,7 @@
       <div class="projects" style="margin-top:20px;">
         <div class="project">
           <div class="project-visual single">
-            <img src="https://res.cloudinary.com/dv0jk958g/image/upload/v1773116622/Vertical_RF_Testing_System_Development_hvfik3.png" alt="Vertical RF testing system overview">" alt="Vertical RF testing system overview">
+            <img src="https://res.cloudinary.com/dv0jk958g/image/upload/v1772765809/Vertical_RF_Testing_System_Development_hvfik3.png?v=1"" alt="Vertical RF testing system overview">
           </div>
 
           <div class="metrics">
@@ -1535,7 +1602,7 @@
         <div class="section-eyebrow" data-i18n="contactEyebrow">Contact</div>
         <h2 data-i18n="contactTitle">Ready for interviews, project discussions, and new opportunities</h2>
         <div class="section-sub" data-i18n="contactBody">
-          You can download my full resume below, or reach out directly by email or LinkedIn.
+          Enter a valid email address below to download my resume. The email will be used only for download notification and record purposes.
         </div>
 
         <div class="contact-boxes" style="margin-top:20px;">
@@ -1550,8 +1617,36 @@
           </div>
         </div>
 
-        <div class="contact-actions">
-          <a class="btn" style="background:#fff;color:#0f172a;" href="James_Huang_Resume.pdf" download aria-label="Download James Huang Resume PDF" data-i18n="contactDownloadResume">Download Resume (PDF)</a>
+        <div class="resume-gate" style="margin-top:22px;">
+          <form id="resumeDownloadForm" class="resume-download-form" novalidate>
+            <label for="resumeEmail" class="resume-label" data-i18n="resumeEmailLabel">Email required before download</label>
+            <div class="resume-form-row">
+              <input
+                id="resumeEmail"
+                name="email"
+                type="email"
+                inputmode="email"
+                autocomplete="email"
+                class="resume-input"
+                placeholder="name@example.com"
+                aria-describedby="resumeFormHint resumeFormStatus"
+                required
+              />
+              <button
+                type="submit"
+                class="btn"
+                id="resumeDownloadBtn"
+                style="background:#fff;color:#0f172a;"
+                data-i18n="contactDownloadResume"
+              >
+                Download Resume (PDF)
+              </button>
+            </div>
+            <div id="resumeFormHint" class="resume-help" data-i18n="resumeHelpText">
+              Please enter a valid email address. After submission, the site will notify me and then start the PDF download automatically.
+            </div>
+            <div id="resumeFormStatus" class="resume-status" aria-live="polite"></div>
+          </form>
         </div>
       </div>
     </section>
@@ -1694,11 +1789,17 @@
 
         contactEyebrow: "Contact",
         contactTitle: "Ready for interviews, project discussions, and new opportunities",
-        contactBody: "You can download my full resume below, or reach out directly by email or LinkedIn.",
+        contactBody: "Enter a valid email address below to download my resume. The email will be used only for download notification and record purposes.",
         contactEmail: "Email",
         contactLinkedin: "LinkedIn",
         contactLinkedinLink: "View LinkedIn Profile",
-        contactDownloadResume: "Download Resume (PDF)"
+        contactDownloadResume: "Download Resume (PDF)",
+        resumeEmailLabel: "Email required before download",
+        resumeHelpText: "Please enter a valid email address. After submission, the site will notify me and then start the PDF download automatically.",
+        resumeInvalid: "Please enter a valid email address before downloading.",
+        resumeSending: "Submitting email and preparing your resume download...",
+        resumeSuccess: "Email recorded. Your resume download will begin shortly.",
+        resumeError: "Notification failed. Please try again later or contact me directly by email."
       },
 
       "zh-Hant": {
@@ -1832,11 +1933,17 @@
 
         contactEyebrow: "聯絡方式",
         contactTitle: "歡迎面試邀約、專案討論與新的工作機會",
-        contactBody: "你可以在下方下載我的完整履歷，或直接透過電子郵件與 LinkedIn 與我聯繫。",
+        contactBody: "請先輸入有效的 Email 再下載履歷。Email 僅用於下載通知與記錄用途。",
         contactEmail: "電子郵件",
         contactLinkedin: "LinkedIn",
         contactLinkedinLink: "查看 LinkedIn 個人檔案",
-        contactDownloadResume: "下載履歷（PDF）"
+        contactDownloadResume: "下載履歷（PDF）",
+        resumeEmailLabel: "下載前請先輸入 Email",
+        resumeHelpText: "請輸入有效的 Email 格式。送出後，系統會先通知我，再自動開始下載 PDF。",
+        resumeInvalid: "請先輸入正確的 Email 格式後再下載。",
+        resumeSending: "正在送出 Email 並準備下載履歷...",
+        resumeSuccess: "Email 已記錄，履歷即將開始下載。",
+        resumeError: "通知送出失敗，請稍後再試，或直接寄 Email 給我聯絡。"
       }
     };
 
@@ -2008,6 +2115,124 @@
         completeLoader();
       }, 2500);
     }
+
+
+    const RESUME_FILE_URL = "James_Huang_Resume.pdf";
+    const RESUME_FILE_NAME = "James_Huang_Resume.pdf";
+
+    /*
+      Replace the Formspree endpoint below with your own form endpoint.
+      Example: https://formspree.io/f/xxxxxxxx
+    */
+    const RESUME_NOTIFY_ENDPOINT = "https://formspree.io/f/xreypbej";
+
+    const resumeDownloadForm = document.getElementById("resumeDownloadForm");
+    const resumeEmailInput = document.getElementById("resumeEmail");
+    const resumeStatus = document.getElementById("resumeFormStatus");
+    const resumeDownloadBtn = document.getElementById("resumeDownloadBtn");
+
+    function getCurrentLanguage() {
+      return localStorage.getItem("portfolioLanguage") || "en";
+    }
+
+    function t(key) {
+      const lang = getCurrentLanguage();
+      return translations[lang]?.[key] || translations.en?.[key] || "";
+    }
+
+    function setResumeStatus(message, type = "") {
+      if (!resumeStatus) return;
+      resumeStatus.textContent = message;
+      resumeStatus.classList.remove("is-error", "is-success");
+      if (type === "error") resumeStatus.classList.add("is-error");
+      if (type === "success") resumeStatus.classList.add("is-success");
+    }
+
+    function isValidEmail(email) {
+      const normalized = String(email || "").trim();
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(normalized);
+    }
+
+   async function notifyResumeDownload(email) {
+  if (!RESUME_NOTIFY_ENDPOINT || RESUME_NOTIFY_ENDPOINT.includes("YOUR_FORMSPREE_ID")) {
+    throw new Error("Missing form endpoint");
+  }
+
+  const payload = {
+    email,
+    source: "Portfolio Resume Download",
+    page: window.location.href,
+    userAgent: navigator.userAgent,
+    downloadedAt: new Date().toISOString()
+  };
+
+  const response = await fetch(RESUME_NOTIFY_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error("Notification request failed");
+  }
+
+  return response;
+}
+
+    function triggerResumeDownload() {
+      const anchor = document.createElement("a");
+      anchor.href = RESUME_FILE_URL;
+      anchor.download = RESUME_FILE_NAME;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+    }
+
+    if (resumeDownloadForm && resumeEmailInput && resumeDownloadBtn) {
+      resumeDownloadForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = resumeEmailInput.value.trim();
+
+        if (!isValidEmail(email)) {
+          resumeEmailInput.classList.add("invalid");
+          setResumeStatus(t("resumeInvalid"), "error");
+          resumeEmailInput.focus();
+          return;
+        }
+
+        resumeEmailInput.classList.remove("invalid");
+        setResumeStatus(t("resumeSending"));
+        resumeDownloadBtn.disabled = true;
+        resumeDownloadBtn.style.opacity = "0.7";
+        resumeDownloadBtn.style.cursor = "not-allowed";
+
+        try {
+          await notifyResumeDownload(email);
+          setResumeStatus(t("resumeSuccess"), "success");
+          triggerResumeDownload();
+          resumeDownloadForm.reset();
+        } catch (error) {
+          console.error(error);
+          setResumeStatus(t("resumeError"), "error");
+        } finally {
+          resumeDownloadBtn.disabled = false;
+          resumeDownloadBtn.style.opacity = "";
+          resumeDownloadBtn.style.cursor = "";
+        }
+      });
+
+      resumeEmailInput.addEventListener("input", () => {
+        if (resumeEmailInput.classList.contains("invalid") && isValidEmail(resumeEmailInput.value.trim())) {
+          resumeEmailInput.classList.remove("invalid");
+          setResumeStatus("");
+        }
+      });
+    }
+
 
     const languageSelect = document.getElementById("languageSelect");
     const themeSelect = document.getElementById("themeSelect");
